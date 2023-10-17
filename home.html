@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>my forum</title>
+        <style>
+            a {
+                text-decoration: none;
+            }
+        </style>
+    </head>
+    <body> <a href="http://localhost:8080/">
+        <h1>my forum</h1></a>
+        <div class="login-regi-container">
+            <form action="http://localhost:8080/login">
+                <button class="login-button" type="submit">Login</button>
+            </form>
+            <form action="http://localhost:8080/register">
+                <button class="register-button">Register</button>
+            </form>
+        </div>
+        {{if .IsLoggedIn}}
+        <!-- Render the logout button if the user is logged in -->
+            <form action="/logout" method="post">
+                <button type="submit">Logout</button>
+            </form>
+        {{end}}
+        <!--navigation header-->
+        <br>
+        <form action="/filtered-posts" method="GET">
+            <div class="categories">
+                <label for="category">Select a category:</label>
+                <select id="category" name="category">
+                    <option value="lifestyle">Lifestyle</option>
+                    <option value="news">News</option>
+                    <option value="gaming">Gaming</option>
+                    <option value="fashion">Fashion</option>
+                    <option value="music">Music</option>
+                    <option value="tv-movies">TV/Movies</option>
+                </select>
+            </div>
+            <button type="submit">Filter</button>
+        </form>
+        <br>
+        <div class="createpostContainer">
+            <form action="http://localhost:8080/create-post">
+                <button class="create-button" type="submit">Create post</button>
+            </form>
+        </div>
+        <!--differentiate between post title and post body, and separate posts-->
+        <h2>All Posts</h2>
+        <div class="posts">
+            {{range .Posts}}
+                <div class="post">
+                    <h3><a href="{{.URL}}">{{.Title}}</a></h3>
+                    <p>{{.Content}}</p>
+                    <p>Post created: {{.Time}}</p>
+                    <br>
+                </div>
+            {{end}}
+        </div>
+
+        <h2>Liked Posts</h2>
+        <div class="posts">
+            {{range .LikedPosts}}
+            <div class="post">
+                <h3><a href="{{.URL}}">{{.Title}}</a></h3>
+                <p>{{.Content}}</p>
+                <p>Post created: {{.Time}}</p>
+                <br>
+            </div>
+            {{end}}
+        </div>
+
+        <h2>Your Posts</h2>
+        <div class="posts">
+            {{range .YourPosts}}
+            <div class="post">
+                <h3><a href="{{.URL}}">{{.Title}}</a></h3>
+                <p>{{.Content}}</p>
+                <p>Post created: {{.Time}}</p>
+                <br>
+            </div>
+            {{end}}
+        </div>
+    </body>
+</html>

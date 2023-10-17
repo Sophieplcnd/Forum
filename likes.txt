@@ -1,0 +1,9 @@
+- create tables for liking posts and liking comments 
+- check if user is logged in so they can like/dislike
+- user performs like/dislike if their session cookie is active
+- retrieve user id from session cookie
+- retrieve post id from URL
+- retrieve comment id from comments table id
+- when user selects like button, 'like' is inserted to the reactions table. vice versa for dislike
+- when user takes away their like/dislike, reactions table 'type' column is wiped
+

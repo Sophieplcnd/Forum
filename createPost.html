@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<head>
+    <title>create post</title>
+    <style>
+        a {
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <a href="http://localhost:8080/">
+    <h1>create post</h1></a>
+    <form method="POST" action="/create-post">
+        <label for="post-title">Post Title:</label>
+        <textarea id="post-title" name="postTitle" rows="1" cols="50"></textarea>
+        <label for="post-content">Post Content:</label>
+        <textarea id="post-content" name="postContent" rows="4" cols="50"></textarea>
+        <br>
+        <!-- add post categories -->
+        <div class="categories">
+            {{range .Categories}}
+                <input type="checkbox" id="{{ .Name }}" name="postCategories" value="{{ .ID }}">
+                <label for="{{ .Name }}">{{ .Name }}</label><br>
+            {{end}}
+        </div>
+        <input type="submit" value="Submit">
+    </form>
+</body>
