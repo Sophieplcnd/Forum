@@ -1,11 +1,11 @@
 FROM golang:1.21.1
 
-RUN mkdir /juhena-forum
+RUN mkdir /forum
 
-ADD . /juhena-forum
+ADD . /forum
 
-WORKDIR /juhena-forum
+WORKDIR /forum
 RUN go mod tidy
 RUN go build -o my-forum-app data.go
 
-CMD ["/juhena-forum/my-forum-app"]
+CMD ["/forum/my-forum-app"]
