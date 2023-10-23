@@ -1,28 +1,98 @@
 <!DOCTYPE html>
+<html>
+
 <head>
     <title>create post</title>
     <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
         a {
             text-decoration: none;
+            color: #333;
         }
+
+        h1 {
+            text-align: center;
+            background-color: #333;
+            color: #fff;
+            padding: 20px 0;
+            margin: 0;
+        }
+
+        form {
+            width: 80%;
+            max-width: 500px;
+            margin: 30px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            font-weight: bold;
+            display: block;
+            margin-top: 10px;
+        }
+
+        textarea {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            resize: vertical;
+        }
+
+        .categories {
+            margin-top: 20px;
+        }
+
+        input[type="checkbox"] {
+            margin-right: 5px;
+        }
+
+        input[type="submit"] {
+            padding: 8px 12px;
+            margin-top: 20px;
+            background-color: #333;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #555;
+        }
+
     </style>
 </head>
+
 <body>
     <a href="http://localhost:8080/">
-    <h1>create post</h1></a>
+        <h1>create post</h1>
+    </a>
     <form method="POST" action="/create-post">
         <label for="post-title">Post Title:</label>
-        <textarea id="post-title" name="postTitle" rows="1" cols="50"></textarea>
+        <textarea id="post-title" name="postTitle" rows="1" placeholder="Enter post title here..."></textarea>
+
         <label for="post-content">Post Content:</label>
-        <textarea id="post-content" name="postContent" rows="4" cols="50"></textarea>
-        <br>
+        <textarea id="post-content" name="postContent" rows="4" placeholder="Enter post content here..."></textarea>
+
         <!-- add post categories -->
         <div class="categories">
             {{range .Categories}}
-                <input type="checkbox" id="{{ .Name }}" name="postCategories" value="{{ .ID }}">
-                <label for="{{ .Name }}">{{ .Name }}</label><br>
+            <input type="checkbox" id="{{ .Name }}" name="postCategories" value="{{ .ID }}">
+            <label for="{{ .Name }}">{{ .Name }}</label><br>
             {{end}}
         </div>
         <input type="submit" value="Submit">
     </form>
 </body>
+
+</html>

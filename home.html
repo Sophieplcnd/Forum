@@ -1,86 +1,162 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <title>my forum</title>
-        <style>
-            a {
-                text-decoration: none;
-            }
-        </style>
-    </head>
-    <body> <a href="http://localhost:8080/">
-        <h1>my forum</h1></a>
-        <div class="login-regi-container">
-            <form action="http://localhost:8080/login">
-                <button class="login-button" type="submit">Login</button>
-            </form>
-            <form action="http://localhost:8080/register">
-                <button class="register-button">Register</button>
-            </form>
-        </div>
-        {{if .IsLoggedIn}}
-        <!-- Render the logout button if the user is logged in -->
-            <form action="/logout" method="post">
-                <button type="submit">Logout</button>
-            </form>
-        {{end}}
-        <!--navigation header-->
-        <br>
-        <form action="/filtered-posts" method="GET">
-            <div class="categories">
-                <label for="category">Select a category:</label>
-                <select id="category" name="category">
-                    <option value="lifestyle">Lifestyle</option>
-                    <option value="news">News</option>
-                    <option value="gaming">Gaming</option>
-                    <option value="fashion">Fashion</option>
-                    <option value="music">Music</option>
-                    <option value="tv-movies">TV/Movies</option>
-                </select>
-            </div>
-            <button type="submit">Filter</button>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Forum</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+        }
+
+        .header {
+            background-color: #007BFF;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .container {
+            width: 80%;
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .login-regi-container, .createpostContainer {
+            display: flex;
+            justify-content: center;
+            margin: 10px 0;
+        }
+
+        form {
+            margin: 0 10px;
+        }
+
+        button, .login-button, .register-button, .create-button {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 3px;
+            background-color: #007BFF;
+            color: #fff;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .login-button:hover, .register-button:hover, .create-button:hover, button:hover {
+            background-color: #0056b3;
+        }
+
+        .categories {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 20px 0;
+        }
+
+        .posts .post {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+            margin: 20px 0;
+        }
+
+        .posts h3 a {
+            color: #007BFF;
+            text-decoration: none;
+        }
+
+        .posts h3 a:hover {
+            text-decoration: underline;
+        }
+
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <a href="http://localhost:8080/">
+            <h1>My Forum</h1>
+        </a>
+    </div>
+    <div class="login-regi-container">
+        <form action="http://localhost:8080/login">
+            <button class="login-button" type="submit">Login</button>
         </form>
-        <br>
-        <div class="createpostContainer">
-            <form action="http://localhost:8080/create-post">
-                <button class="create-button" type="submit">Create post</button>
-            </form>
+        <form action="http://localhost:8080/register">
+            <button class="register-button">Register</button>
+        </form>
+    </div>
+    {{if .IsLoggedIn}}
+        <!-- Render the logout button if the user is logged in -->
+        <form action="/logout" method="post" style="text-align:center;">
+            <button type="submit">Logout</button>
+        </form>
+    {{end}}
+    <!--navigation header-->
+    <br>
+    <form action="/filtered-posts" method="GET" style="text-align:center;">
+        <div class="categories">
+            <label for="category">Select a category:</label>
+            <select id="category" name="category">
+                <option value="lifestyle">Lifestyle</option>
+                <option value="news">News</option>
+                <option value="gaming">Gaming</option>
+                <option value="fashion">Fashion</option>
+                <option value="music">Music</option>
+                <option value="tv-movies">TV/Movies</option>
+            </select>
         </div>
-        <!--differentiate between post title and post body, and separate posts-->
-        <h2>All Posts</h2>
-        <div class="posts">
-            {{range .Posts}}
-                <div class="post">
-                    <h3><a href="{{.URL}}">{{.Title}}</a></h3>
-                    <p>{{.Content}}</p>
-                    <p>Post created: {{.Time}}</p>
-                    <br>
-                </div>
-            {{end}}
-        </div>
-
-        <h2>Liked Posts</h2>
-        <div class="posts">
-            {{range .LikedPosts}}
+        <button type="submit">Filter</button>
+    </form>
+    <br>
+    <div class="createpostContainer">
+        <form action="http://localhost:8080/create-post">
+            <button class="create-button" type="submit">Create post</button>
+        </form>
+    </div>
+    <!--differentiate between post title and post body, and separate posts-->
+    <h2>All Posts</h2>
+    <div class="posts">
+        {{range .Posts}}
             <div class="post">
                 <h3><a href="{{.URL}}">{{.Title}}</a></h3>
                 <p>{{.Content}}</p>
                 <p>Post created: {{.Time}}</p>
                 <br>
             </div>
-            {{end}}
+        {{end}}
+    </div>
+    <h2>Liked Posts</h2>
+    <div class="posts">
+        {{range .LikedPosts}}
+        <div class="post">
+            <h3><a href="{{.URL}}">{{.Title}}</a></h3>
+            <p>{{.Content}}</p>
+            <p>Post created: {{.Time}}</p>
+            <br>
         </div>
+        {{end}}
+    </div>
+    <h2>Your Posts</h2>
+    <div class="posts">
+        {{range .YourPosts}}
+        <div class="post">
+            <h3><a href="{{.URL}}">{{.Title}}</a></h3>
+            <p>{{.Content}}</p>
+            <p>Post created: {{.Time}}</p>
+            <br>
+        </div>
+        {{end}}
+    </div>
+</body>
 
-        <h2>Your Posts</h2>
-        <div class="posts">
-            {{range .YourPosts}}
-            <div class="post">
-                <h3><a href="{{.URL}}">{{.Title}}</a></h3>
-                <p>{{.Content}}</p>
-                <p>Post created: {{.Time}}</p>
-                <br>
-            </div>
-            {{end}}
-        </div>
-    </body>
 </html>

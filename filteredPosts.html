@@ -1,63 +1,117 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <title>my forum</title>
-        <style>
-            a {
-                text-decoration: none;
-            }
-        </style>
-    </head>
-    <body>
-        <a href="http://localhost:8080/">
-        <h1>my forum</h1></a>
-        <div class="login-regi-container">
-            <form action="http://localhost:8080/login">
-                <button class="login-button" type="submit">Login</button>
-            </form>
-            <form action="http://localhost:8080/register">
-                <button class="register-button">Register</button>
-            </form>
-        </div>
-        <!--navigation header-->
-        <br>
-        <form action="/filtered-posts" method="GET">
-            <div class="categories">
-                <label for="category">Select a category:</label>
-                <select id="category" name="category">
-                    <option value="lifestyle">Lifestyle</option>
-                    <option value="news">News</option>
-                    <option value="gaming">Gaming</option>
-                    <option value="fashion">Fashion</option>
-                    <option value="music">Music</option>
-                    <option value="tv-movies">TV/Movies</option>
-                </select>
-            </div>
-            <button type="submit">Filter</button>
-        </form>
-        <div class="redirect">
-            <form action="http://localhost:8080/">
-                <button class="redirect-button" type="submit">Show all posts</button>
-            </form>
-        </div>
+<html lang="en">
 
-        <br>
-        <div class="createpostContainer">
-            <form action="http://localhost:8080/create-post">
-                <button class="create-button" type="submit">Create post</button>
-            </form>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>my forum</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+
+        a {
+            text-decoration: none;
+            color: #007BFF;
+        }
+
+        h1, h3 {
+            text-align: center;
+            background-color: #333;
+            color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            margin: 0 0 50px 0;
+            width: 100%;
+        }
+
+        .categories, .redirect, .createpostContainer {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        button, select {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+        .login-button, .register-button, .redirect-button, .create-button {
+            background-color: #007BFF;
+            color: #fff;
+            margin: 0 5px;
+        }
+
+        .login-button:hover, .register-button:hover, .redirect-button:hover, .create-button:hover {
+            background-color: #0056b3;
+        }
+
+        .posts .post {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 5px rgba(177, 9, 140, 0.2);
+            margin-bottom: 20px;
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <a href="http://localhost:8080/">
+        <h1>my forum</h1>
+    </a>
+
+    <div class="login-regi-container" style="text-align: center;">
+        <form action="http://localhost:8080/login">
+            <button class="login-button" type="submit">Login</button>
+        </form>
+        <form action="http://localhost:8080/register">
+            <button class="register-button">Register</button>
+        </form>
+    </div>
+
+    <form action="/filtered-posts" method="GET" style="text-align: center;">
+        <div class="categories">
+            <label for="category">Select a category:</label>
+            <select id="category" name="category">
+                <option value="lifestyle">Lifestyle</option>
+                <option value="news">News</option>
+                <option value="gaming">Gaming</option>
+                <option value="fashion">Fashion</option>
+                <option value="music">Music</option>
+                <option value="tv-movies">TV/Movies</option>
+            </select>
         </div>
-        <!--show filtered posts-->
-        <h1>Filtered Posts - Category: {{.Category}}</h1>
-        <div class="posts">
-            {{range .FilteredPosts}}
-                <div class="post">
-                    <h3><a href="{{.URL}}">{{.Title}}</a></h3>
-                    <p>{{.Content}}</p>
-                    <p>Post created: {{.Time}}</p>
-                    <br>
-                </div>
-            {{end}}
+        <button type="submit">Filter</button>
+    </form>
+
+    <div class="redirect" style="text-align: center;">
+        <form action="http://localhost:8080/">
+            <button class="redirect-button" type="submit">Show all posts</button>
+        </form>
+    </div>
+
+    <div class="createpostContainer" style="text-align: center;">
+        <form action="http://localhost:8080/create-post">
+            <button class="create-button" type="submit">Create post</button>
+        </form>
+    </div>
+
+    <h3>Filtered Posts - Category: {{.Category}}</h3>
+    <div class="posts">
+        {{range .FilteredPosts}}
+        <div class="post">
+            <h3><a href="{{.URL}}">{{.Title}}</a></h3>
+            <p>{{.Content}}</p>
+            <p>Post created: {{.Time}}</p>
         </div>
-    </body>
+        {{end}}
+    </div>
+</body>
+
 </html>
